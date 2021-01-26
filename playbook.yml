@@ -1,0 +1,23 @@
+---
+
+- name: Replace Configuration to Development
+  gather_facts: false
+  connection: local
+  hosts: localhost
+  vars:
+    var_development: |
+      {
+        "api_root": "http://10.130.140.74:8081/"
+      }  
+
+  tasks:
+    - copy:
+        dest: /root/builds/src/assets/env/env.development.json
+        content: "{{ var_development }}"
+        
+    - name: Display files content
+      debug:
+        msg: "{{ lookup('file', '/root/builds/src/assets/env/env.development.json') }}"     
+        
+    
+    
